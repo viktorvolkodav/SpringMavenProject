@@ -6,7 +6,6 @@ import dao.BankStatus;
 
 public class Bank {
 
-	
 	private String name;
 	private String shortName;
 	private String code;
@@ -17,11 +16,8 @@ public class Bank {
 	private Date licensedate;
 	private BankStatus status;
 
-	
-	
-	
 	private Bank() {
-		
+
 	}
 
 	public String getName() {
@@ -96,8 +92,6 @@ public class Bank {
 		this.status = status;
 	}
 
-	
-	
 	@Override
 	public String toString() {
 		return "Bank [name=" + name + ", shortName=" + shortName + ", code=" + code + ", mfo=" + mfo + ", date=" + date
@@ -105,7 +99,7 @@ public class Bank {
 				+ "]";
 	}
 
-	public static Bank createBank(){
+	public static Bank createBank() {
 		return new Bank();
 	}
 
