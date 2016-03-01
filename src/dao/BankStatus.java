@@ -1,0 +1,5 @@
+package dao;
+
+public enum BankStatus {
+	NORMAL, TEMPORARYADMINISTRATION, LIQUIDATION, BANKLIQUIDATED;
+}
