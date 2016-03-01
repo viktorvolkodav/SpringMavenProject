@@ -129,7 +129,7 @@ public class ParseInfoFromSite {
 	 * @return Bank
 	 */
 	public static Bank createBank(Map<String, String> map) {
-		Bank bank = new Bank();
+		Bank bank = Bank.createBank();
 
 		try {
 			bank.setName(map.get("Назва"));

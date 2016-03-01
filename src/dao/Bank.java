@@ -18,6 +18,12 @@ public class Bank {
 	private BankStatus status;
 
 	
+	
+	
+	private Bank() {
+		
+	}
+
 	public String getName() {
 		return name;
 	}
