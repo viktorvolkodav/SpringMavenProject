@@ -9,6 +9,7 @@
 	<configs>
 		<config>WebContent/WEB-INF/Banks-servlet.xml</config>
 		<config>src/resources/dao-contex.xml</config>
+		<config>src/resources/service-contex.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

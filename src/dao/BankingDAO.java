@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -29,15 +30,23 @@ public class BankingDAO {
 
 	// Search bank for code in DB
 	public Bank getBankForCode(String code) {
-		SqlParameterSource parameterSource = new MapSqlParameterSource("code", code);
-		return jdbc.queryForObject("SELECT * FROM banktable WHERE code = :code", parameterSource,
-				new RowMapper<Bank>() {
 
-					@Override
-					public Bank mapRow(ResultSet rs, int rowNum) throws SQLException {
-						return createOneBank(rs);
-					}
-				});
+		SqlParameterSource parameterSource = new MapSqlParameterSource("code", code);
+		Bank bank;
+		try {
+
+			bank = jdbc.queryForObject("SELECT * FROM banktable WHERE code = :code", parameterSource,
+					new RowMapper<Bank>() {
+
+						@Override
+						public Bank mapRow(ResultSet rs, int rowNum) throws SQLException {
+							return createOneBank(rs);
+						}
+					});
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return bank;
 	}
 
 	// Search bank/banks for name in DB
