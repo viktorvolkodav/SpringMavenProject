@@ -21,8 +21,8 @@
 		<ul>
 
 			<li class="start"><a href="${pageContext.request.contextPath}/"> Головна </a></li>
-			<li><a href="SearchResult.jsp"> Про сайт </a></li>
-			<li><a href="banksinfo.jsp"> Про мене </a></li>
+			<li><a href="${pageContext.request.contextPath}/aboutsitepage"> Про сайт </a></li>
+			<li><a href="${pageContext.request.contextPath}/aboutsitepage"> Про мене </a></li>
 			<li class="end"><a href="${pageContext.request.contextPath}/serverpage">Вхід та реєстрація</a>
 			</li>
 		</ul>

@@ -12,7 +12,7 @@
 <body>
 
 	<h1>Server page</h1>
-	<form action="parseSiteNBU" method="get">
+	<form action="updateDB" method="GET">
 		<p>
 			<INPUT TYPE="SUBMIT" Value="Заповнити базу">
 		</p>
@@ -23,7 +23,7 @@
 		<font color="#0000aa">${result}</font>
 	</h5>
 
-	<form action="index.jsp">
+	<form action="${pageContext.request.contextPath}/">
 		<p>
 			<INPUT TYPE="SUBMIT" Value="Повернутись до сайту">
 		</p>

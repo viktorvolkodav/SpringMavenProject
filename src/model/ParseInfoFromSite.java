@@ -36,7 +36,7 @@ public class ParseInfoFromSite {
 	 * 
 	 * @return List with all banks from NBU site
 	 */
-	public static List<Bank> parseSiteNBU() {
+	public static List<Bank> parseSiteNBU() throws Exception{
 
 		Map<String, String> map = new HashMap<String, String>();
 		List<String> list = new ArrayList<String>();

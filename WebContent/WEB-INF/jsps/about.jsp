@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" >
 <html>
 <head>
@@ -20,26 +18,8 @@
 		<jsp:include page="/WEB-INF/jsps/res/Header.jsp"></jsp:include>
 
 		<div id="body" class="width">
-			<section id="content"> <%
- 	if (request.getAttribute("Bank") != null) {
- %> <jsp:include page="/WEB-INF/jsps/res/PrintOneBankInfo.jsp"></jsp:include>
-			<%
-				} else {
-			%>
-			<table>
-				<c:forEach var="Bank" items="${BankList}" varStatus="status">
-					<tr>
-						<td>${status.count}</td>
-						<td><a
-							href="${pageContext.request.contextPath}/searchBank?searchString=${Bank.code}">
-								${Bank.name}</a></td>
-					</tr>
-				</c:forEach>
-			</table>
-
-			<%
-				}
-			%> <br>
+			<section id="content">
+			 ${result} <br>
 			<br>
 			<br>
 			<br>
@@ -63,16 +43,14 @@
 			<br>
 			<br>
 			<br>
-			<br>
-
 			</section>
 
 			<jsp:include page="/WEB-INF/jsps/res/Sidebar.jsp"></jsp:include>
 			<div class="clear"></div>
 
-
 		</div>
 		<jsp:include page="/WEB-INF/jsps/res/Footer.jsp"></jsp:include>
+
 	</div>
 </body>
 

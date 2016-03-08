@@ -11,5 +11,10 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping(path="/aboutsitepage")
+	public String aboutPage(Model model) {
 		
+		model.addAttribute("result", "На даний момент дана сторінка в розробці");
+		return "about";
+	}
 }

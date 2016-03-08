@@ -11,7 +11,7 @@
 		<li>
 			<h4>Категорії</h4>
 			<ul>
-
+				<li><a href="${pageContext.request.contextPath}/getAllBanks">Всі банки</a></li>
 			</ul>
 		</li>
 
@@ -20,7 +20,8 @@
 			<h4>Пошук банку</h4>
 			<ul>
 				<li class="text">
-					<form method="GET" action="${pageContext.request.contextPath}/searchBank">
+					<form method="GET"
+						action="${pageContext.request.contextPath}/searchBank">
 						<p>
 							<input type="text" size="32" value="" name="searchString" />
 

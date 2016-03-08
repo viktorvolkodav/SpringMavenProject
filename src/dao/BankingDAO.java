@@ -76,14 +76,14 @@ public class BankingDAO {
 	// Create one bank and add properties to it from ResultSet
 	public Bank createOneBank(ResultSet rs) throws SQLException {
 		Bank bank = Bank.createBank();
-		bank.setName(rs.getString("name"));
+		bank.setName(rs.getString("name").toUpperCase());
 		bank.setCode(rs.getString("code"));
 		bank.setMfo(rs.getString("mfo"));
 		bank.setDate(rs.getDate("date"));
 		bank.setAdress(rs.getString("adress"));
 		bank.setLicense(rs.getString("license"));
 		bank.setLicensedate(rs.getDate("licensedate"));
-		bank.setShortName(rs.getString("shortName"));
+		bank.setShortName(rs.getString("shortName").toUpperCase());
 		bank.setStatus(BankStatus.NORMAL);
 		return bank;
 	}
