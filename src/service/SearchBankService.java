@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import dao.Bank;
 import dao.BankingDAO;
 
-@Service("serviceClass")
-public class ServiceClass {
+@Service("searchBankService")
+public class SearchBankService {
 
 	private BankingDAO bankingDAO;
 
@@ -35,6 +35,11 @@ public class ServiceClass {
 		Pattern p = Pattern.compile("^[0-9]+");
 		Matcher m = p.matcher(code);
 		return m.matches();
+	}
+
+	public List<Bank> getAllBanks() {
+		
+		return bankingDAO.getAllBanks();
 	}
 
 }

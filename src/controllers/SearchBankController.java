@@ -8,16 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.Bank;
-import service.ServiceClass;
+import service.SearchBankService;
 
 @Controller
 public class SearchBankController {
 
-	private ServiceClass serviceClass;
+	private SearchBankService searchBankService;
 
 	@Autowired
-	public void setServiceClass(ServiceClass serviceClass) {
-		this.serviceClass = serviceClass;
+	public void setServiceClass(SearchBankService searchBankService) {
+		this.searchBankService = searchBankService;
 	}
 
 	@RequestMapping("/searchBank")
@@ -31,9 +31,9 @@ public class SearchBankController {
 
 		Bank bank = Bank.createBank();
 
-		if (ServiceClass.isDigital(searchString)) {
+		if (SearchBankService.isDigital(searchString)) {
 			if (searchString.length() == 8) {
-				bank = serviceClass.searchBankForCode(searchString);
+				bank = searchBankService.searchBankForCode(searchString);
 
 				if (bank == null) {
 					model.addAttribute("badResult", "Банк з таким кодом відсутній. Спробуйте ще.");
@@ -49,7 +49,7 @@ public class SearchBankController {
 			}
 
 		} else {
-			List<Bank> list = serviceClass.searchBankForName(searchString);
+			List<Bank> list = searchBankService.searchBankForName(searchString);
 			if (list == null || list.isEmpty() || list.size() == 0) {
 				model.addAttribute("badResult", "Банк з такою назвою відсутній. Спробуйте ще.");
 				return "index";
@@ -62,8 +62,11 @@ public class SearchBankController {
 
 	}
 	
-	@RequestMapping("/serverpage")
-	public String serverPage(Model model) {
-		return "serverpage";
-	}	
+	@RequestMapping("/getAllBanks")
+	public String getAllBanks(Model model) {
+		List<Bank> list = searchBankService.getAllBanks();
+		model.addAttribute("BankList", list);
+		return "SearchResult";
+	}
+
 }
