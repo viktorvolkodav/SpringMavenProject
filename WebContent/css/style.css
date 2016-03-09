@@ -20,6 +20,10 @@ table {
 	text-align: left;
 }
 
+tr{
+	padding: 10px 10px;
+}
+
 th, td {
 	padding: 10px 10px;
 }

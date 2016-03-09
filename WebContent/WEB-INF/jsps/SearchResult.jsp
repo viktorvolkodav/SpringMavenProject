@@ -20,12 +20,13 @@
 		<jsp:include page="/WEB-INF/jsps/res/Header.jsp"></jsp:include>
 
 		<div id="body" class="width">
-			<section id="content"> <%
- 	if (request.getAttribute("Bank") != null) {
- %> <jsp:include page="/WEB-INF/jsps/res/PrintOneBankInfo.jsp"></jsp:include>
-			<%
-				} else {
-			%>
+			<section id="content"> 
+			
+			<c:if test= "${Bank != null}">
+			<jsp:include page="/WEB-INF/jsps/res/PrintOneBankInfo.jsp"></jsp:include>
+			</c:if>
+			
+			<c:if test= "${BankList.size() != null}">
 			<table>
 				<c:forEach var="Bank" items="${BankList}" varStatus="status">
 					<tr>
@@ -36,10 +37,8 @@
 					</tr>
 				</c:forEach>
 			</table>
-
-			<%
-				}
-			%> <br>
+			</c:if>
+			<br>
 			<br>
 			<br>
 			<br>
