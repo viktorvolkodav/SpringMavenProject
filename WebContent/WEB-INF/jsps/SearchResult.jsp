@@ -20,25 +20,21 @@
 		<jsp:include page="/WEB-INF/jsps/res/Header.jsp"></jsp:include>
 
 		<div id="body" class="width">
-			<section id="content"> 
-			
-			<c:if test= "${Bank != null}">
-			<jsp:include page="/WEB-INF/jsps/res/PrintOneBankInfo.jsp"></jsp:include>
-			</c:if>
-			
-			<c:if test= "${BankList.size() != null}">
-			<table>
-				<c:forEach var="Bank" items="${BankList}" varStatus="status">
-					<tr>
-						<td>${status.count}</td>
-						<td><a
-							href="${pageContext.request.contextPath}/searchBank?searchString=${Bank.code}">
-								${Bank.name}</a></td>
-					</tr>
-				</c:forEach>
-			</table>
-			</c:if>
-			<br>
+			<section id="content"> <c:if test="${Bank != null}">
+				<jsp:include page="/WEB-INF/jsps/res/PrintOneBankInfo.jsp"></jsp:include>
+			</c:if> 
+			<c:if test="${BankList.size() != null}">
+				<table>
+					<c:forEach var="Bank" items="${BankList}" varStatus="status">
+						<tr>
+							<td>${status.count}</td>
+							<td><a
+								href="${pageContext.request.contextPath}/searchBank?searchString=${Bank.code}">
+									${Bank.name}</a></td>
+						</tr>
+					</c:forEach>
+				</table>
+		</c:if> 
 			<br>
 			<br>
 			<br>
