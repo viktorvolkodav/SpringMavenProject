@@ -15,6 +15,11 @@ public class SearchBankService {
 
 	private BankingDAO bankingDAO;
 
+	@Autowired
+	public void setBankingDAO(BankingDAO bankingDAO) {
+		this.bankingDAO = bankingDAO;
+	}
+
 	public Bank searchBankForCode(String str) {
 		Bank bank = bankingDAO.getBankForCode(str);
 
@@ -26,11 +31,6 @@ public class SearchBankService {
 		return bankingDAO.getBankForName(str);
 	}
 
-	@Autowired
-	public void setBankingDAO(BankingDAO bankingDAO) {
-		this.bankingDAO = bankingDAO;
-	}
-
 	public static boolean isDigital(String code) {
 		Pattern p = Pattern.compile("^[0-9]+");
 		Matcher m = p.matcher(code);
@@ -38,7 +38,7 @@ public class SearchBankService {
 	}
 
 	public List<Bank> getAllBanks() {
-		
+
 		return bankingDAO.getAllBanks();
 	}
 

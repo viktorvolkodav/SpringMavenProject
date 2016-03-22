@@ -1,23 +1,35 @@
 package controllers;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.Bank;
+import service.SearchBankInfoInExcelService;
 import service.SearchBankService;
 
 @Controller
 public class SearchBankController {
 
 	private SearchBankService searchBankService;
+	private SearchBankInfoInExcelService searchBankInfoInExcelService;
 
 	@Autowired
 	public void setServiceClass(SearchBankService searchBankService) {
 		this.searchBankService = searchBankService;
+	}
+
+	@Autowired
+	public void setSearchBankInfoInExcelService(SearchBankInfoInExcelService searchBankInfoInExcelService) {
+		this.searchBankInfoInExcelService = searchBankInfoInExcelService;
 	}
 
 	@RequestMapping("/searchBank")
@@ -61,11 +73,26 @@ public class SearchBankController {
 		}
 
 	}
-	
+
 	@RequestMapping("/getAllBanks")
 	public String getAllBanks(Model model) {
 		List<Bank> list = searchBankService.getAllBanks();
 		model.addAttribute("BankList", list);
+		return "SearchResult";
+	}
+
+	@RequestMapping("/financialInfo/{bancCode}/{bankMfo}")
+	public String getFinancialInfo(@PathVariable int bancCode, @PathVariable int bankMfo, Model model) {
+		Map<String, Map<String, Double>> map = new LinkedHashMap<String, Map<String, Double>>();
+		try {
+			map = searchBankInfoInExcelService.searchBankInExcel(bankMfo);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		model.addAttribute("bankInfo", map);
+		model.addAttribute("Bank", searchBankService.searchBankForCode(bancCode + ""));
 		return "SearchResult";
 	}
 
