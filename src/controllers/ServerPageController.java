@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import service.ServerPageService;
 
@@ -17,12 +18,12 @@ public class ServerPageController {
 	public void setServiceClass(ServerPageService serverPageService) {
 		this.serverPageService = serverPageService;
 	}
-	@RequestMapping("/serverpage")
+	@RequestMapping(value="/serverpage", method=RequestMethod.GET)
 	public String serverPage(Model model) {
 		return "serverpage";
 	}	
 	
-	@RequestMapping("/updateDB")
+	@RequestMapping(value="/updateDB", method=RequestMethod.GET)
 	public String updateDB(Model model){
 		
 		String res = serverPageService.updateDB();
