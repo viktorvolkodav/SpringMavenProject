@@ -465,3 +465,7 @@ footer .footer-bottom p {
 footer .footer-bottom p, footer .footer-bottom p a {
 	color: #666;
 }
+
+error {
+	color: red;
+}

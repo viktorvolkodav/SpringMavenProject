@@ -12,15 +12,21 @@
 					password="victor" />
 			</security:user-service>
 		</security:authentication-provider>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource" />
+		</security:authentication-provider>
 	</security:authentication-manager>
 
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/" access="permitAll" />
-		<security:intercept-url pattern="/serverpage"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/updateDB"
-			access="isAuthenticated()" />
-
-		<security:form-login />
+		<security:intercept-url pattern="/serverpage" access="isAuthenticated()" />
+		<security:intercept-url pattern="/updateDB" access="isAuthenticated()" />
+		<security:intercept-url pattern="/log/login" access="permitAll" />
+		<security:intercept-url pattern="/log/createaccount" access="permitAll" />
+		<security:intercept-url pattern="/log/newaccount" access="permitAll" />
+		<security:intercept-url pattern="/log/accountcreated" access="permitAll" />	
+		
+		<security:form-login login-page="/log/login"
+			authentication-failure-url="/log/login?error=true" />
 	</security:http>
 </beans>
