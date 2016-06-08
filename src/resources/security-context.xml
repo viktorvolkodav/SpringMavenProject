@@ -6,27 +6,53 @@
 
 
 	<security:authentication-manager>
+
 		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="victor" authorities="admin"
-					password="victor" />
-			</security:user-service>
-		</security:authentication-provider>
-		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="dataSource" />
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				authorities-by-username-query='SELECT username, authority FROM authorities where binary username = ?'
+				users-by-username-query='SELECT username, password, enabled FROM users where binary username = ?'
+				id="jdbcUserService" />
+
+			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
 		</security:authentication-provider>
 	</security:authentication-manager>
 
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/" access="permitAll" />
-		<security:intercept-url pattern="/serverpage" access="isAuthenticated()" />
-		<security:intercept-url pattern="/updateDB" access="isAuthenticated()" />
-		<security:intercept-url pattern="/log/login" access="permitAll" />
-		<security:intercept-url pattern="/log/createaccount" access="permitAll" />
-		<security:intercept-url pattern="/log/newaccount" access="permitAll" />
-		<security:intercept-url pattern="/log/accountcreated" access="permitAll" />	
-		
+
+		<security:intercept-url pattern="/updateDB"
+			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/log/login"
+			access="permitAll" />
+		<security:intercept-url pattern="/log/logout"
+			access="permitAll" />
+		<security:intercept-url pattern="/log/createaccount"
+			access="permitAll" />
+		<security:intercept-url pattern="/log/newaccount"
+			access="permitAll" />
+		<security:intercept-url pattern="/log/accountcreated"
+			access="permitAll" />
+		<security:intercept-url pattern="/denied"
+			access="permitAll" />
+		<security:intercept-url pattern="/error"
+			access="permitAll" />
+		<security:intercept-url pattern="/adminpage"
+			access="hasRole('ROLE_ADMIN')" />
+
 		<security:form-login login-page="/log/login"
-			authentication-failure-url="/log/login?error=true" />
+			authentication-failure-url="/login?error=true" />
+		<security:logout logout-success-url="/log/login"
+			logout-url="/logout" />
+
+		<security:remember-me key="key" user-service-ref="jdbcUserService" />
+
+
 	</security:http>
+	<security:global-method-security
+		secured-annotations="enabled"></security:global-method-security>
+
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+	</bean>
 </beans>

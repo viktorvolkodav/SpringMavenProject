@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import dao.BankStatus;
 
 @Component("bankingDAO")
-public class BankingDAO {
+public class BankDAO {
 
 	private NamedParameterJdbcTemplate jdbc;
 

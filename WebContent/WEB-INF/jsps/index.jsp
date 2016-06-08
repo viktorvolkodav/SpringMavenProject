@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/style.css" />
+	href="${pageContext.request.contextPath}/static/css/style.css" />
 
 
 <title>VBank info</title>

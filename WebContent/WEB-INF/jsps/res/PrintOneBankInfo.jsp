@@ -6,7 +6,7 @@
 
 <body>
 	<table class="title">
-		<thread> </thread>
+		
 		<tr>
 			<td><b> Назва</b></td>
 			<td><b> ${Bank.name}</b></td>

@@ -24,8 +24,7 @@
 	</c:if>
 
 
-	<form name='f'
-		action='${pageContext.request.contextPath}/login'
+	<form name='f' action='${pageContext.request.contextPath}/login'
 		method='POST'>
 		<table class="formtable">
 			<tr>
@@ -37,17 +36,24 @@
 				<td><input type='password' name='password' /></td>
 			</tr>
 			<tr>
+				<td>Remember me:</td>
+				<td><input type="checkbox" name='_spring_security_remember_me'
+					checked="checked" /></td>
+			</tr>
+			<tr>
 				<td colspan='2'><input name="submit" type="submit"
 					value="Прийняти" /></td>
 			</tr>
+
 		</table>
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
 	</form>
 
 	<p>
-		<a href="<c:url value = "/log/newaccount"/>"> Створити новий
-			акаунт</a>
+		<a href="<c:url value = "/newaccount"/>"> Створити новий акаунт</a> <br>
+		<br> <a href="${pageContext.request.contextPath}/"> На
+			головна сторінку </a>
 	</p>
 </body>
 </html>

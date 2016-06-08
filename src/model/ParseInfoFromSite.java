@@ -29,7 +29,7 @@ import dao.BankStatus;
 
 public class ParseInfoFromSite {
 
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.M.yyyy");
+	
 
 	/**
 	 * Parse site of Nation Bank of Ukraine (NBU)
@@ -129,6 +129,7 @@ public class ParseInfoFromSite {
 	 * @return Bank
 	 */
 	public static Bank createBank(Map<String, String> map) {
+		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.M.yyyy");
 		Bank bank = Bank.createBank();
 
 		try {
