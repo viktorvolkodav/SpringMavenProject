@@ -7,17 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.Bank;
-import dao.BankingDAO;
+import dao.BankDAO;
 import model.ParseInfoFromSite;
 
 @Service("serverPageService")
-public class ServerPageService {
+public class AdminPageService {
 
-	private BankingDAO bankingDAO;
+	private BankDAO bankDAO;
 
 	@Autowired
-	public void setBankingDAO(BankingDAO bankingDAO) {
-		this.bankingDAO = bankingDAO;
+	public void setBankingDAO(BankDAO bankDAO) {
+		this.bankDAO = bankDAO;
 	}
 
 	public String updateDB() {
@@ -27,12 +27,12 @@ public class ServerPageService {
 		} catch (Exception ex) {
 			return "Наявні проблеми з отриманням інформації з сайту НБУ. База данних не заповнена.";
 		}
-		boolean cleanDB = bankingDAO.cleanDB();
+		boolean cleanDB = bankDAO.cleanDB();
 		if (cleanDB == true)
 			return "База данних не була очищена";
 
 		try {
-			 bankingDAO.updateDB(banks);
+			 bankDAO.updateDB(banks);
 		} catch (Exception ex) {
 			return "Проблеми з заповненням бази данних. База даних не була запаовнена.";
 		}

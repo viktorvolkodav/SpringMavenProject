@@ -6,29 +6,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import service.ServerPageService;
+import service.AdminPageService;
 
 
 @Controller
-public class ServerPageController {
+public class AdminPageController {
 	
-	private ServerPageService serverPageService;
+	private AdminPageService adminPageService;
 
 	@Autowired
-	public void setServiceClass(ServerPageService serverPageService) {
-		this.serverPageService = serverPageService;
+	public void setServiceClass(AdminPageService adminPageService) {
+		this.adminPageService = adminPageService;
 	}
-	@RequestMapping(value="/serverpage", method=RequestMethod.GET)
+	@RequestMapping(value="/adminpage", method=RequestMethod.GET)
 	public String serverPage(Model model) {
-		return "serverpage";
+		return "adminpage";
 	}	
 	
 	@RequestMapping(value="/updateDB", method=RequestMethod.GET)
 	public String updateDB(Model model){
 		
-		String res = serverPageService.updateDB();
+		String res = adminPageService.updateDB();
 		model.addAttribute("result", res);
 		
-		return "serverpage";
+		return "adminpage";
 	}
 }
