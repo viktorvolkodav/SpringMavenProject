@@ -5,8 +5,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" >
 <html>
+
 <body>
 
 	<header>
@@ -16,7 +19,7 @@
 			<a href="${pageContext.request.contextPath}/"> VBank <span>
 					info</span></a>
 		</h1>
-
+		<br>
 	</div>
 	</header>
 
