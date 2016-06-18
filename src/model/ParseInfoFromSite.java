@@ -29,14 +29,12 @@ import dao.BankStatus;
 
 public class ParseInfoFromSite {
 
-	
-
 	/**
 	 * Parse site of Nation Bank of Ukraine (NBU)
 	 * 
 	 * @return List with all banks from NBU site
 	 */
-	public static List<Bank> parseSiteNBU() throws Exception{
+	public static List<Bank> parseSiteNBU() {
 
 		Map<String, String> map = new HashMap<String, String>();
 		List<String> list = new ArrayList<String>();

@@ -2,13 +2,14 @@ package dao;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -19,22 +20,31 @@ import org.springframework.stereotype.Component;
 @Component("excelgDAO")
 public class ExcelDAO {
 
-	public Map<String, Map<String, Double>> searchBankInfoInExcel(String fileName, int mfo) throws IOException {
+	private static Logger logger = LogManager.getLogger(ExcelDAO.class);
+
+	public Map<String, Map<String, Double>> searchBankInfoInExcel(String fileName, int mfo) {
 		Map<String, Map<String, Double>> map = new LinkedHashMap<String, Map<String, Double>>();
-		FileInputStream fis = new FileInputStream(new File(fileName));
-		HSSFWorkbook workbook = new HSSFWorkbook(fis);
 
-		for (int i = 0; i < 4; i++) {
-			HSSFSheet spreadsheet = workbook.getSheetAt(i);
-			map.put(workbook.getSheetName(i), searchBankInfoInExcelSheet(spreadsheet, mfo));
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(new File(fileName));
+
+			HSSFWorkbook workbook = new HSSFWorkbook(fis);
+
+			for (int i = 0; i < 4; i++) {
+				HSSFSheet spreadsheet = workbook.getSheetAt(i);
+				map.put(workbook.getSheetName(i), searchBankInfoInExcelSheet(spreadsheet, mfo));
+			}
+
+			workbook.close();
+			fis.close();
+		} catch (Exception e) {
+			logger.catching(e);
 		}
-
-		workbook.close();
-		fis.close();
 		return map;
 	}
 
-	private Map<String, Double> searchBankInfoInExcelSheet(HSSFSheet spreadsheet, int mfo) throws IOException {
+	private Map<String, Double> searchBankInfoInExcelSheet(HSSFSheet spreadsheet, int mfo) {
 
 		List<String> stringList = new ArrayList<String>();
 		List<Double> doubleList = new ArrayList<Double>();
