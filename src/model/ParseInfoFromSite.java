@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Comment;
 import org.jsoup.nodes.Document;
@@ -29,16 +31,19 @@ import dao.BankStatus;
 
 public class ParseInfoFromSite {
 
+	private static Logger logger = LogManager.getLogger();
 	/**
 	 * Parse site of Nation Bank of Ukraine (NBU)
 	 * 
 	 * @return List with all banks from NBU site
 	 */
 	public static List<Bank> parseSiteNBU() {
-
+		
+		logger.info("run");
 		Map<String, String> map = new HashMap<String, String>();
 		List<String> list = new ArrayList<String>();
 		List<Bank> bankList = new ArrayList<Bank>();
+	
 
 		for (int i = 0, j = 1; i < 6; i++, j = j + 20) {
 
@@ -64,6 +69,7 @@ public class ParseInfoFromSite {
 	 */
 	public static Map<String, String> getBankInfoMap(String URL) {
 
+		logger.info("run");
 		Map<String, String> map = new HashMap<String, String>();
 		Document doc;
 
@@ -97,6 +103,8 @@ public class ParseInfoFromSite {
 	 * @return List<String> with 20 links to page with information about banks
 	 */
 	public static List<String> getListOfBanks(String URL) {
+		
+		logger.info("run");
 		List<String> list = new ArrayList<String>();
 
 		Document doc;
@@ -127,6 +135,8 @@ public class ParseInfoFromSite {
 	 * @return Bank
 	 */
 	public static Bank createBank(Map<String, String> map) {
+		
+		logger.info("run");
 		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.M.yyyy");
 		Bank bank = Bank.createBank();
 
@@ -159,6 +169,8 @@ public class ParseInfoFromSite {
 	 * @return
 	 */
 	public static List<Comment> findAllComments(Document doc) {
+		
+		logger.info("run");
 		List<Comment> comments = new ArrayList<>();
 		for (Element element : doc.getAllElements()) {
 			for (Node n : element.childNodes()) {

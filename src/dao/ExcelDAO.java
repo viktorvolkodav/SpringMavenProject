@@ -20,9 +20,12 @@ import org.springframework.stereotype.Component;
 @Component("excelgDAO")
 public class ExcelDAO {
 
-	private static Logger logger = LogManager.getLogger(ExcelDAO.class);
+	private static Logger logger = LogManager.getLogger();
 
 	public Map<String, Map<String, Double>> searchBankInfoInExcel(String fileName, int mfo) {
+		
+		logger.info("run");
+		
 		Map<String, Map<String, Double>> map = new LinkedHashMap<String, Map<String, Double>>();
 
 		FileInputStream fis;
@@ -46,6 +49,8 @@ public class ExcelDAO {
 
 	private Map<String, Double> searchBankInfoInExcelSheet(HSSFSheet spreadsheet, int mfo) {
 
+		logger.info("run");
+		
 		List<String> stringList = new ArrayList<String>();
 		List<Double> doubleList = new ArrayList<Double>();
 

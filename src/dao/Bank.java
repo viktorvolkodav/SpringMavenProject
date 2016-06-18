@@ -2,8 +2,6 @@ package dao;
 
 import java.sql.Date;
 
-import dao.BankStatus;
-
 public class Bank {
 
 	private String name;
@@ -100,6 +98,7 @@ public class Bank {
 	}
 
 	public static Bank createBank() {
+
 		return new Bank();
 	}
 

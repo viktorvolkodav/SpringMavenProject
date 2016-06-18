@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 public class BankDAO {
 
 	private NamedParameterJdbcTemplate jdbc;
-	private static Logger logger = LogManager.getLogger(BankDAO.class);
+	private static Logger logger = LogManager.getLogger();
 
 	@Autowired
 	public void setJdbc(DataSource jdbc) {
@@ -30,6 +30,8 @@ public class BankDAO {
 
 	// Search bank for code in DB
 	public Bank getBankForCode(String code) {
+		
+		logger.info("run");
 
 		SqlParameterSource parameterSource = new MapSqlParameterSource("code", code);
 		Bank bank;
@@ -40,7 +42,7 @@ public class BankDAO {
 
 						@Override
 						public Bank mapRow(ResultSet rs, int rowNum) throws SQLException {
-							return createOneBank(rs);
+							return readOneBank(rs);
 						}
 					});
 		} catch (EmptyResultDataAccessException e) {
@@ -51,30 +53,38 @@ public class BankDAO {
 
 	// Search bank/banks for name in DB
 	public List<Bank> getBankForName(String name) {
+		
+		logger.info("run");
+		
 		SqlParameterSource parameterSource = new MapSqlParameterSource("name", "%" + name.toUpperCase() + "%");
 		return jdbc.query("SELECT * FROM banktable WHERE name LIKE :name", parameterSource, new RowMapper<Bank>() {
 
 			@Override
 			public Bank mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return createOneBank(rs);
+				return readOneBank(rs);
 			}
 		});
 	}
 
 	// Return all banks from DB
 	public List<Bank> getAllBanks() {
+		
+		logger.info("run");
 
 		return jdbc.query("SELECT * FROM banktable", new RowMapper<Bank>() {
 
 			@Override
 			public Bank mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return createOneBank(rs);
+				return readOneBank(rs);
 			}
 		});
 	}
 
 	// Create one bank and add properties to it from ResultSet
-	public Bank createOneBank(ResultSet rs) {
+	public Bank readOneBank(ResultSet rs) {
+		
+		logger.info("run");
+		
 		Bank bank = Bank.createBank();
 		try {
 			bank.setName(rs.getString("name").toUpperCase());
@@ -87,6 +97,7 @@ public class BankDAO {
 		bank.setLicensedate(rs.getDate("licensedate"));
 		bank.setShortName(rs.getString("shortName").toUpperCase());
 		bank.setStatus(BankStatus.NORMAL);
+		
 		} catch (SQLException e) {
 			logger.catching(e);
 		}
@@ -95,6 +106,8 @@ public class BankDAO {
 
 	// Add in DB new Banks
 	public int[] updateDB(List<Bank> banks) {
+		
+		logger.info("run");
 
 		SqlParameterSource[] resBatch = SqlParameterSourceUtils.createBatch(banks.toArray());
 
@@ -106,6 +119,9 @@ public class BankDAO {
 
 	// Clean DB
 	public boolean cleanDB() {
+		
+		logger.info("run");
+		
 		SqlParameterSource parameterSource = null;
 		return jdbc.update("TRUNCATE banktable", parameterSource) == 1;
 	}
