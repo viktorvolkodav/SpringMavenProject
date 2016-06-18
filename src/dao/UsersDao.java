@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component("usersDao")
 public class UsersDao {
 
-	private static Logger logger = LogManager.getLogger(UsersDao.class);
+	private static Logger logger = LogManager.getLogger();
 	private NamedParameterJdbcTemplate jdbc;
 
 	@Autowired
@@ -32,6 +32,7 @@ public class UsersDao {
 	@Transactional
 	public boolean create(User user) {
 
+		logger.info("run");
 		MapSqlParameterSource params = new MapSqlParameterSource();
 
 		params.addValue("username", user.getUsername());
@@ -49,11 +50,14 @@ public class UsersDao {
 
 	public boolean exists(String username) {
 
+		logger.info("run");
 		return jdbc.queryForObject("select count(*) from users where username=:username",
 				new MapSqlParameterSource("username", username), Integer.class) > 0;
 	}
 
 	public User getUser(String username) {
+
+		logger.info("run");
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("username", username);
 

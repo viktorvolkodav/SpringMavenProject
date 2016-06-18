@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import dao.ExcelDAO;
 public class SearchBankInfoInExcelService {
 	
 	private ExcelDAO excelDAO;
+	private static Logger logger = LogManager.getLogger();
 
 	@Autowired
 	public void setExcelDAO(ExcelDAO excelDAO) {
@@ -20,6 +23,7 @@ public class SearchBankInfoInExcelService {
 	}
 	
 	public Map<String, Map<String, Double>> searchBankInExcel(int mfo) throws IOException{
+		logger.info("run");
 		
 		Map<String, Map<String, Double>> res = new LinkedHashMap<String, Map<String, Double>>();
 		
