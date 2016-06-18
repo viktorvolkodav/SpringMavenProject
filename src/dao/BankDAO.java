@@ -2,11 +2,12 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,12 +17,11 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Component;
 
-import dao.BankStatus;
-
 @Component("bankingDAO")
 public class BankDAO {
 
 	private NamedParameterJdbcTemplate jdbc;
+	private static Logger logger = LogManager.getLogger(BankDAO.class);
 
 	@Autowired
 	public void setJdbc(DataSource jdbc) {
@@ -74,9 +74,11 @@ public class BankDAO {
 	}
 
 	// Create one bank and add properties to it from ResultSet
-	public Bank createOneBank(ResultSet rs) throws SQLException {
+	public Bank createOneBank(ResultSet rs) {
 		Bank bank = Bank.createBank();
-		bank.setName(rs.getString("name").toUpperCase());
+		try {
+			bank.setName(rs.getString("name").toUpperCase());
+		
 		bank.setCode(rs.getString("code"));
 		bank.setMfo(rs.getString("mfo"));
 		bank.setDate(rs.getDate("date"));
@@ -85,6 +87,9 @@ public class BankDAO {
 		bank.setLicensedate(rs.getDate("licensedate"));
 		bank.setShortName(rs.getString("shortName").toUpperCase());
 		bank.setStatus(BankStatus.NORMAL);
+		} catch (SQLException e) {
+			logger.catching(e);
+		}
 		return bank;
 	}
 

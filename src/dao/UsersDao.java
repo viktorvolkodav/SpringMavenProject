@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component("usersDao")
 public class UsersDao {
 
+	private static Logger logger = LogManager.getLogger(UsersDao.class);
 	private NamedParameterJdbcTemplate jdbc;
 
 	@Autowired
@@ -56,13 +59,16 @@ public class UsersDao {
 
 		return jdbc.queryForObject("select * from users where username=:username", params, new RowMapper<User>() {
 
-			public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+			public User mapRow(ResultSet rs, int rowNum) {
 				User user = new User();
 
-				user.setUsername(rs.getString("username"));
+				try {
+					user.setUsername(rs.getString("username"));
 
-				user.setEmail(rs.getString("email"));
-
+					user.setEmail(rs.getString("email"));
+				} catch (SQLException e) {
+					logger.catching(e);
+				}
 				return user;
 			}
 
