@@ -11,6 +11,7 @@
 		<config>src/resources/security-context.xml</config>
 		<config>src/resources/dao-context.xml</config>
 		<config>src/resources/service-context.xml</config>
+		<config>test/config/datasource.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

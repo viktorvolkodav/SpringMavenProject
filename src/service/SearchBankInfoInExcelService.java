@@ -9,17 +9,17 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dao.ExcelDAO;
+import dao.ExcelDao;
 
 @Service("searchBankInfoInExcelService")
 public class SearchBankInfoInExcelService {
 	
-	private ExcelDAO excelDAO;
+	private ExcelDao excelDao;
 	private static Logger logger = LogManager.getLogger();
 
 	@Autowired
-	public void setExcelDAO(ExcelDAO excelDAO) {
-		this.excelDAO = excelDAO;
+	public void setExcelDAO(ExcelDao excelDao) {
+		this.excelDao = excelDao;
 	}
 	
 	public Map<String, Map<String, Double>> searchBankInExcel(int mfo) throws IOException{
@@ -27,7 +27,7 @@ public class SearchBankInfoInExcelService {
 		
 		Map<String, Map<String, Double>> res = new LinkedHashMap<String, Map<String, Double>>();
 		
-		res = excelDAO.searchBankInfoInExcel("C://Eclipse/VBankinfo/src/excel/excelresurces/01102015.xls", mfo);
+		res = excelDao.searchBankInfoInExcel("C://Eclipse/VBankinfo/src/excel/excelresurces/01102015.xls", mfo);
 		
 		return res;
 	}

@@ -9,35 +9,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.Bank;
-import dao.BankDAO;
+import dao.BankDao;
 import model.ParseInfoFromSite;
 
 @Service("serverPageService")
 public class AdminPageService {
 
-	private BankDAO bankDAO;
+	private BankDao bankDao;
+	
+	@Autowired
+	private ParseInfoFromSite parseInfoFromSite;
+	
 	private static Logger logger = LogManager.getLogger();
 	
 	
 	@Autowired
-	public void setBankingDAO(BankDAO bankDAO) {
-		this.bankDAO = bankDAO;
+	public void setBankingDAO(BankDao bankDao) {
+		this.bankDao = bankDao;
 	}
 
 	public String updateDB() {
 		logger.info("run");
 		List<Bank> banks = new ArrayList<Bank>();
 		try {
-			banks = ParseInfoFromSite.parseSiteNBU();
+			banks = parseInfoFromSite.parseSiteNBU();
 		} catch (Exception ex) {
 			return "Наявні проблеми з отриманням інформації з сайту НБУ. База данних не заповнена.";
 		}
-		boolean cleanDB = bankDAO.cleanDB();
+		boolean cleanDB = bankDao.cleanDB();
 		if (cleanDB == true)
 			return "База данних не була очищена";
 
 		try {
-			 bankDAO.updateDB(banks);
+			 bankDao.updateDB(banks);
 		} catch (Exception ex) {
 			return "Проблеми з заповненням бази данних. База даних не була запаовнена.";
 		}
