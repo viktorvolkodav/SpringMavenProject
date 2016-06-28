@@ -17,8 +17,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Component;
 
-@Component("excelgDAO")
-public class ExcelDAO {
+@Component("excelDao")
+public class ExcelDao {
 
 	private static Logger logger = LogManager.getLogger();
 

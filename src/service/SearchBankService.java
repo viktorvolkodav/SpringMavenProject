@@ -10,28 +10,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.Bank;
-import dao.BankDAO;
+import dao.BankDao;
 
 @Service("searchBankService")
 public class SearchBankService {
 
-	private BankDAO bankDAO;
+	private BankDao bankDao;
 	private static Logger logger = LogManager.getLogger();
 
 	@Autowired
-	public void setBankingDAO(BankDAO bankDAO) {
-		this.bankDAO = bankDAO;
+	public void setBankingDAO(BankDao bankDao) {
+		this.bankDao = bankDao;
 	}
 
 	public Bank searchBankForCode(String str) {
 		
 		logger.info("run");
-		return bankDAO.getBankForCode(str);
+		return bankDao.getBankForCode(str);
 	}
 
 	public List<Bank> searchBankForName(String str) {
 		logger.info("run");
-		return bankDAO.getBankForName(str);
+		return bankDao.getBankForName(str);
 	}
 
 	public static boolean isDigital(String code) {
@@ -43,7 +43,7 @@ public class SearchBankService {
 
 	public List<Bank> getAllBanks() {
 		logger.info("run");
-		return bankDAO.getAllBanks();
+		return bankDao.getAllBanks();
 	}
 
 }

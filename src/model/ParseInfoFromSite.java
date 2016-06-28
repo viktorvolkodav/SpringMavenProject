@@ -17,6 +17,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import dao.Bank;
 import dao.BankStatus;
@@ -29,6 +30,7 @@ import dao.BankStatus;
  *
  */
 
+@Component("parseInfoFromSite")
 public class ParseInfoFromSite {
 
 	private static Logger logger = LogManager.getLogger();
@@ -37,7 +39,7 @@ public class ParseInfoFromSite {
 	 * 
 	 * @return List with all banks from NBU site
 	 */
-	public static List<Bank> parseSiteNBU() {
+	public List<Bank> parseSiteNBU() {
 		
 		logger.info("run");
 		Map<String, String> map = new HashMap<String, String>();
@@ -67,7 +69,7 @@ public class ParseInfoFromSite {
 	 *            on page with information about one bank
 	 * @return Map <String,String> with information about bank
 	 */
-	public static Map<String, String> getBankInfoMap(String URL) {
+	public Map<String, String> getBankInfoMap(String URL) {
 
 		logger.info("run");
 		Map<String, String> map = new HashMap<String, String>();
@@ -102,7 +104,7 @@ public class ParseInfoFromSite {
 	 *            where are 20 links to page with information about banks
 	 * @return List<String> with 20 links to page with information about banks
 	 */
-	public static List<String> getListOfBanks(String URL) {
+	public List<String> getListOfBanks(String URL) {
 		
 		logger.info("run");
 		List<String> list = new ArrayList<String>();
@@ -134,7 +136,7 @@ public class ParseInfoFromSite {
 	 *            with information about bank
 	 * @return Bank
 	 */
-	public static Bank createBank(Map<String, String> map) {
+	public Bank createBank(Map<String, String> map) {
 		
 		logger.info("run");
 		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.M.yyyy");
@@ -168,7 +170,7 @@ public class ParseInfoFromSite {
 	 * @param doc
 	 * @return
 	 */
-	public static List<Comment> findAllComments(Document doc) {
+	public List<Comment> findAllComments(Document doc) {
 		
 		logger.info("run");
 		List<Comment> comments = new ArrayList<>();

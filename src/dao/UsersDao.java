@@ -2,12 +2,14 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -45,14 +47,18 @@ public class UsersDao {
 				"insert into users (username, password, email, enabled) values (:username, :password, :email, :enabled)",
 				params);
 
-		return jdbc.update("insert into authorities (username, authority) values (:username, :authority)", params) == 1;
+		return jdbc.update(
+				"insert into authorities (username, authority) values (:username, :authority)",
+				params) == 1;
 	}
 
 	public boolean exists(String username) {
 
 		logger.info("run");
-		return jdbc.queryForObject("select count(*) from users where username=:username",
-				new MapSqlParameterSource("username", username), Integer.class) > 0;
+		return jdbc.queryForObject(
+				"select count(*) from users where username=:username",
+				new MapSqlParameterSource("username", username),
+				Integer.class) > 0;
 	}
 
 	public User getUser(String username) {
@@ -61,22 +67,36 @@ public class UsersDao {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("username", username);
 
-		return jdbc.queryForObject("select * from users where username=:username", params, new RowMapper<User>() {
+		return jdbc.queryForObject(
+				"select * from users,  authorities where users.username=authorities.username",
+				params, new RowMapper<User>() {
 
-			public User mapRow(ResultSet rs, int rowNum) {
-				User user = new User();
+					public User mapRow(ResultSet rs, int rowNum) {
+						User user = new User();
 
-				try {
-					user.setUsername(rs.getString("username"));
+						try {
+							user.setUsername(rs.getString("username"));
 
-					user.setEmail(rs.getString("email"));
-				} catch (SQLException e) {
-					logger.catching(e);
-				}
-				return user;
-			}
+							user.setEmail(rs.getString("email"));
+							user.setAuthority(rs.getString("authority"));
+							if (rs.getString("enabled").equals( "1")) {
+								user.setEnabled(true);
+							} else
+								user.setEnabled(false);
+						} catch (SQLException e) {
+							logger.catching(e);
+						}
+						return user;
+					}
 
-		});
+				});
+
+	}
+
+	public List<User> getAllUsers() {
+		return jdbc.query(
+				"select * from users,  authorities where users.username=authorities.username",
+				BeanPropertyRowMapper.newInstance(User.class));
 	}
 
 }
