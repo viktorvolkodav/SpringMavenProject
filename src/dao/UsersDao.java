@@ -64,13 +64,14 @@ public class UsersDao {
 	public User getUser(String username) {
 
 		logger.info("run");
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("username", username);
+		MapSqlParameterSource params = new MapSqlParameterSource("username",
+				username);
 
 		return jdbc.queryForObject(
-				"select * from users,  authorities where users.username=authorities.username",
+				"select * from users, authorities where users.username= :username and  authorities.username= :username",
 				params, new RowMapper<User>() {
 
+					@Override
 					public User mapRow(ResultSet rs, int rowNum) {
 						User user = new User();
 
@@ -79,7 +80,7 @@ public class UsersDao {
 
 							user.setEmail(rs.getString("email"));
 							user.setAuthority(rs.getString("authority"));
-							if (rs.getString("enabled").equals( "1")) {
+							if (rs.getString("enabled").equals("1")) {
 								user.setEnabled(true);
 							} else
 								user.setEnabled(false);
@@ -88,9 +89,7 @@ public class UsersDao {
 						}
 						return user;
 					}
-
 				});
-
 	}
 
 	public List<User> getAllUsers() {

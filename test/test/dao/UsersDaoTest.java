@@ -27,7 +27,7 @@ import dao.UsersDao;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UsersDaoTest {
 
-	private User user;
+	private User user, user1;
 
 	@Autowired
 	private UsersDao usersDao;
@@ -41,6 +41,7 @@ public class UsersDaoTest {
 		jdbc.execute("delete from users");
 		jdbc.execute("delete from authorities");
 		user = new User("viktorvv", "victorvv", "v@v.com", true, "ROLE_USER");
+		user1 = new User("iraira", "iraira", "iraira@v.com", true, "ROLE_USER");
 	}
 
 	@Test
@@ -61,6 +62,7 @@ public class UsersDaoTest {
 	public void testGetUser() {
 
 		assertTrue("true", usersDao.create(user));
+		assertTrue("true", usersDao.create(user1));
 
 		User userFromDB = usersDao.getUser("viktorvv");
 

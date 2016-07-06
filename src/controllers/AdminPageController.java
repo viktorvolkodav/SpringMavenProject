@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import service.AdminPageService;
 
@@ -36,7 +35,7 @@ public class AdminPageController {
 	 * 
 	 * @return run adminpage.jsp
 	 */
-	@RequestMapping(value = "/adminpage", method = RequestMethod.GET)
+	@RequestMapping("/adminpage")
 	public final String serverPage() {
 		return "adminpage";
 	}
@@ -48,7 +47,7 @@ public class AdminPageController {
 	 *            the model value
 	 * @return run adminpage.jsp
 	 */
-	@RequestMapping(value = "/updateDB", method = RequestMethod.GET)
+	@RequestMapping("/updateDB")
 	public final String updateDB(final Model model) {
 
 		String res = adminPageService.updateDB();
