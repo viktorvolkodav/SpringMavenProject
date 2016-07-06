@@ -57,7 +57,7 @@ public class LoginController {
 		return "log/logout";
 	}
 
-	@RequestMapping("newaccount")
+	@RequestMapping("/newaccount")
 	public String showNewAccount(Model model) {
 
 		model.addAttribute("user", new User());

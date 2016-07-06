@@ -29,7 +29,7 @@ public class HomeController {
 	 * @param  model the model value
 	 * @return about.jsp
 	 */
-	@RequestMapping(path = "/aboutsitepage")
+	@RequestMapping("/aboutsitepage")
 	public final String aboutPage(final Model model) {
 
 		model.addAttribute("result", "На даний момент дана сторінка в розробці");

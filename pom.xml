@@ -154,5 +154,10 @@
 			<artifactId>mockito-core</artifactId>
 			<version>1.10.19</version>
 		</dependency>
+		<dependency>
+			<groupId>springframework</groupId>
+			<artifactId>spring-mock</artifactId>
+			<version>1.2.6</version>
+		</dependency>
 	</dependencies>
 </project>
