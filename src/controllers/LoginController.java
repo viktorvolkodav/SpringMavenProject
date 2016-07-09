@@ -75,13 +75,13 @@ public class LoginController {
 		user.setAuthority("ROLE_USER");
 		user.setEnabled(true);
 
-		if (usersService.exists(user.getUsername())) {
+		if (usersService.userExists(user.getUsername())) {
 			result.rejectValue("username", "DuplicateKey.user.username", "This username already exist");
 			return "log/newaccount";
 		}
 
 		try {
-			usersService.create(user);
+			usersService.createUser(user);
 		} catch (DuplicateKeyException e) {
 			result.rejectValue("username", "DuplicateKey.user.username", "This username already exist");
 			return "log/newaccount";

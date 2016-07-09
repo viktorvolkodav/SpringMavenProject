@@ -1,6 +1,8 @@
-package test.dao;
+package test.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import dao.Bank;
 import dao.BankDao;
 import dao.BankStatus;
+import service.SearchBankService;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = { "classpath:resources/dao-context.xml",
@@ -27,10 +30,14 @@ import dao.BankStatus;
 		"classpath:resources/model-context.xml",
 		"classpath:config/datasource.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class BankDaoTest {
+
+public class SearchBankServiceTest {
 
 	@Autowired
 	private BankDao bankDao;
+
+	@Autowired
+	private SearchBankService searchBankService;
 
 	@Autowired
 	private DataSource dataSource;
@@ -42,61 +49,30 @@ public class BankDaoTest {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
 		jdbc.execute("delete from banktable");
 		banks = creatListOfBanks();
+		bankDao.updateDB(banks);
 	}
 
 	@Test
-	public void testUpdateDB() {
-
-		List<Bank> banksFromDB = bankDao.getAllBanks();
-		assertEquals("Should 0", 0, banksFromDB.size());
-
-		Bank bank1 = banks.get(0);
-
-		bankDao.updateDB(banks);
-
-		banksFromDB = bankDao.getAllBanks();
-
-		assertEquals("Should 2", 2, banksFromDB.size());
-
-		assertEquals("Should equals", bank1.getMfo(),
-				banksFromDB.get(0).getMfo());
-
-		assertEquals("Should equals", bank1.getDate().toString(),
-				banksFromDB.get(0).getDate().toString());
-		assertEquals("Should equals", bank1.getLicensedate().toString(),
-				banksFromDB.get(0).getLicensedate().toString());
-		assertEquals("Should equals", bank1, banksFromDB.get(0));
-	}
-
-	@Test
-	public void testGetBankForCode() {
-
-		bankDao.updateDB(banks);
-		Bank bank = bankDao.getBankForCode("5555555");
+	public void testSearchBankForCode() {
+		Bank bank = searchBankService.searchBankForCode("5555555");
 		assertEquals("Should equals", banks.get(1), bank);
 	}
 
 	@Test
-	public void testGetBankForName() {
-		bankDao.updateDB(banks);
-		List<Bank> banksForName = bankDao.getBankForName("Oschad");
-		assertEquals("Should equals", banks.get(1), banksForName.get(0));
+	public void testSearchBankForName() {
+		List<Bank> banksForName = searchBankService.searchBankForName("Oschad");
+		assertEquals(banks.get(1), banksForName.get(0));
 	}
 
 	@Test
-	public void testCleabDB() {
-
-		List<Bank> banksFromDB = bankDao.getAllBanks();
-		assertEquals("Should 0", 0, banksFromDB.size());
-
-		List<Bank> banks = creatListOfBanks();
-		bankDao.updateDB(banks);
-		banksFromDB = bankDao.getAllBanks();
-		assertEquals("Should 2", 2, banksFromDB.size());
-
-		bankDao.cleanDB();
-		banksFromDB = bankDao.getAllBanks();
-		assertEquals("Should 0", 0, banksFromDB.size());
+	public void testIsDigital() {
+		assertTrue(SearchBankService.isDigital("55"));
+		assertFalse(SearchBankService.isDigital("s"));
+	}
+	
+	@Test
+	public void testGetAllBanks() {
+		assertEquals(2, searchBankService.getAllBanks().size());
 	}
 
 	public final List<Bank> creatListOfBanks() {

@@ -23,7 +23,6 @@ public class BankTest {
 				banks.get(1).hashCode());
 		assertEquals("Should equals", banks.get(0).hashCode(),
 				banks.get(0).hashCode());
-
 	}
 
 	@Test
@@ -32,9 +31,7 @@ public class BankTest {
 
 		assertNotEquals("Should not equals", banks.get(0), banks.get(1));
 		assertNotEquals("Should not equals", Bank.createBank(), banks.get(1));
-		assertEquals("Should equals", banks.get(0),
-				banks.get(0));
-
+		assertEquals("Should equals", banks.get(0), banks.get(0));
 	}
 
 	public final List<Bank> creatListOfBanks() {

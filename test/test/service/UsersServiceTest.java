@@ -1,18 +1,21 @@
-package test.dao;
+package test.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Map;
+import javax.sql.DataSource;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import dao.ExcelDao;
+import dao.User;
+import service.UsersService;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = { "classpath:resources/dao-context.xml",
@@ -21,26 +24,28 @@ import dao.ExcelDao;
 		"classpath:resources/model-context.xml",
 		"classpath:config/datasource.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ExcelDaoTest {
+
+public class UsersServiceTest {
+	private User user;
 
 	@Autowired
-	private ExcelDao excelDao;
+	private UsersService usersService;
 
-	@Test
-	public void testSearchBankInfoInExcel() {
+	@Autowired
+	private DataSource dataSource;
 
-		int mfo = 305299;
-		Map<String, Map<String, Double>> bankIn = excelDao
-				.searchBankInfoInExcel(
-						"C://Eclipse/VBankinfo/test/resources/01102015.xls",
-						mfo);
-
-		Map<String, Double> bankIn1 = bankIn.get("Власний капітал банків");
-
-		assertTrue("true", bankIn1.containsKey("Резерви переоцінки"));
-		assertTrue("true", bankIn1.containsKey("Емісійні різниці "));
-		assertEquals("Should 2", new Double(1571266.78767),
-				bankIn1.get("Резерви переоцінки"));
+	@Before
+	public void init() {
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		jdbc.execute("delete from users");
+		jdbc.execute("delete from authorities");
+		user = new User("viktorvv", "victorvv", "v@v.com", true, "ROLE_USER");
 	}
 
+	@Test
+	public void testService() {
+		usersService.createUser(user);
+		assertTrue(usersService.userExists("viktorvv"));
+		assertEquals(usersService.getUser("viktorvv"), user);
+	}
 }

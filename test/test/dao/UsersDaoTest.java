@@ -47,7 +47,7 @@ public class UsersDaoTest {
 	@Test
 	public void testCreateUser() {
 
-		assertTrue("true", usersDao.create(user));
+		assertTrue("true", usersDao.createUser(user));
 
 		List<User> users = usersDao.getAllUsers();
 
@@ -61,8 +61,8 @@ public class UsersDaoTest {
 	@Test
 	public void testGetUser() {
 
-		assertTrue("true", usersDao.create(user));
-		assertTrue("true", usersDao.create(user1));
+		assertTrue("true", usersDao.createUser(user));
+		assertTrue("true", usersDao.createUser(user1));
 
 		User userFromDB = usersDao.getUser("viktorvv");
 
