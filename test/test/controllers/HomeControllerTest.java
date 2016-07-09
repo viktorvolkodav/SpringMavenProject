@@ -21,21 +21,16 @@ public class HomeControllerTest {
 	}
 
 	@Test
-	public void testMainPage() {
-		try {
-			this.mockMvc.perform(get("/")).andExpect((status().isOk())).andExpect(forwardedUrl("index"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-		}
+	public void testMainPage() throws Exception {
+
+		this.mockMvc.perform(get("/")).andExpect((status().isOk()))
+				.andExpect(forwardedUrl("index"));
 	}
 
 	@Test
-	public void testAboutPage() {
-		try {
-			this.mockMvc.perform(get("/aboutsitepage")).andExpect((status().isOk()))
-					.andExpect(forwardedUrl("about"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-		}
+	public void testAboutPage() throws Exception {
+
+		this.mockMvc.perform(get("/aboutsitepage")).andExpect((status().isOk()))
+				.andExpect(forwardedUrl("about"));
 	}
 }

@@ -16,6 +16,7 @@ public class SearchBankInfoInExcelService {
 	
 	private ExcelDao excelDao;
 	private static Logger logger = LogManager.getLogger();
+	private String FILE_NAME = "C://Eclipse/VBankinfo/src/excel/excelresurces/01102015.xls";
 
 	@Autowired
 	public void setExcelDAO(ExcelDao excelDao) {
@@ -23,11 +24,15 @@ public class SearchBankInfoInExcelService {
 	}
 	
 	public Map<String, Map<String, Double>> searchBankInExcel(int mfo) throws IOException{
+		return searchBank(mfo, FILE_NAME);
+	}
+	
+	public Map<String, Map<String, Double>> searchBank(int mfo, String fileName) throws IOException{
 		logger.info("run");
 		
 		Map<String, Map<String, Double>> res = new LinkedHashMap<String, Map<String, Double>>();
 		
-		res = excelDao.searchBankInfoInExcel("C://Eclipse/VBankinfo/src/excel/excelresurces/01102015.xls", mfo);
+		res = excelDao.searchBankInfoInExcel(fileName, mfo);
 		
 		return res;
 	}

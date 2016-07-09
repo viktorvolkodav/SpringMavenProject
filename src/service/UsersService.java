@@ -19,12 +19,12 @@ public class UsersService {
 		this.usersDao = usersDao;
 	}
 
-	public void create(User user) {
+	public void createUser(User user) {
 		logger.info("run");
-		usersDao.create(user);
+		usersDao.createUser(user);
 	}
 
-	public boolean exists(String username) {
+	public boolean userExists(String username) {
 		logger.info("run");
 		return usersDao.exists(username);
 	}

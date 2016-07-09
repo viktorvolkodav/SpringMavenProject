@@ -32,7 +32,7 @@ public class UsersDao {
 	}
 
 	@Transactional
-	public boolean create(User user) {
+	public boolean createUser(User user) {
 
 		logger.info("run");
 		MapSqlParameterSource params = new MapSqlParameterSource();

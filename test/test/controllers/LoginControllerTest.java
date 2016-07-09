@@ -1,57 +1,29 @@
 package test.controllers;
 
-import static org.junit.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import javax.sql.DataSource;
+import java.net.BindException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.BindingResult;
 
 import controllers.LoginController;
-import dao.User;
-import dao.UsersDao;
-import service.UsersService;
 
 public class LoginControllerTest {
 
 	private MockMvc mockMvc;
 
-	@Autowired
-	private UsersService usersService;
-
-	private User user, user1;
-
-	@Autowired
-	private UsersDao usersDao;
-
-	@Autowired
-	private DataSource dataSource;
-
 	@Before
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.standaloneSetup(new LoginController())
 				.build();
-	}
-
-	@Test
-	public void testShowUserPage() {
-
-		try {
-			this.mockMvc.perform(get("/userpage")).andExpect((status().isOk()))
-					.andExpect(forwardedUrl("userpage"));
-		} catch (Exception e) {
-			/* NOP */ }
 	}
 
 	@Test
@@ -73,22 +45,22 @@ public class LoginControllerTest {
 	}
 
 	@Test
-	public void testShowNewAccount() {
-		try {
-			this.mockMvc.perform(get("/newaccount"))
-					.andExpect((status().isOk()))
-					.andExpect(forwardedUrl("log/newaccount"));
-		} catch (Exception e) {
-			/* NOP */ }
+	public void testShowNewAccount() throws Exception {
+
+		this.mockMvc.perform(get("/newaccount")).andExpect((status().isOk()))
+				.andExpect(forwardedUrl("log/newaccount"));
 	}
 
 	@Test
 	public void testDoCreate() {
 
+		BindException ex = new BindException();
 		try {
-			this.mockMvc.perform(post("/createaccount"))
+			this.mockMvc.perform(post("/createaccount").flashAttr("result", ex))
 					.andExpect((status().isOk()))
-					.andExpect(forwardedUrl("log/newaccount"));
+					.andExpect(view().name("log/newaccount"))
+					.andExpect(forwardedUrl("log/newaccount"))
+					.andExpect(model().attribute("result", ex));
 		} catch (Exception e) {
 			/* NOP */ }
 	}

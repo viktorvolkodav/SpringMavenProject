@@ -30,8 +30,6 @@ public class AdminPageControllerTest {
 		try {
 			this.mockMvc.perform(get("/adminpage")).andExpect((status().isOk())).andExpect(forwardedUrl("adminpage"));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-		}
-	
+		/* NOP */ }
 	}
 }
