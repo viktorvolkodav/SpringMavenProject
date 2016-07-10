@@ -159,5 +159,16 @@
 			<artifactId>spring-mock</artifactId>
 			<version>1.2.6</version>
 		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock</artifactId>
+			<version>1.6.5</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-reflect</artifactId>
+			<version>1.6.5</version>
+		</dependency>
 	</dependencies>
 </project>
