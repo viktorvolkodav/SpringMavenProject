@@ -24,6 +24,7 @@ public class User {
 	private String password;
 
 	private boolean enabled = false;
+	
 	private String authority;
 
 	public User() {

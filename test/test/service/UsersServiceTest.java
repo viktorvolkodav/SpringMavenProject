@@ -38,7 +38,6 @@ public class UsersServiceTest {
 	public void init() {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
 		jdbc.execute("delete from users");
-		jdbc.execute("delete from authorities");
 		user = new User("viktorvv", "victorvv", "v@v.com", true, "ROLE_USER");
 	}
 

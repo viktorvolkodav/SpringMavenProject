@@ -1,4 +1,4 @@
-activeProfiles=
+activeProfiles=-Dmaven.wagon.http.ssl.insecure \= true - Dmaven.wagon.http.ssl.allowall \= true
 eclipse.preferences.version=1
 resolveWorkspaceProjects=true
 version=1

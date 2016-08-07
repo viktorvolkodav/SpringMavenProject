@@ -39,7 +39,6 @@ public class UsersDaoTest {
 	public void init() {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
 		jdbc.execute("delete from users");
-		jdbc.execute("delete from authorities");
 		user = new User("viktorvv", "victorvv", "v@v.com", true, "ROLE_USER");
 		user1 = new User("iraira", "iraira", "iraira@v.com", true, "ROLE_USER");
 	}
