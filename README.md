@@ -1,17 +1,11 @@
 # VBankinfo
-О проекте. 
-VBankinfo - проект сайта на котором будет размещена и сгрупирована информация с сайта Национального Банка Украины
-(инорфмация которая есть в окрытом доступе) о банках Украины. Сайт будет предоставлять пользователям максимально полную и 
-структуризированую информацию о конкретном банке. Проблема официального сайта НБУ в том что там информация о банках раскидана по разным 
-разделам и для получения полной картины необходимо лазить по разным разделам и екселевским файлам и сводить ее во едино.
 
-Проект VBankinfo это по сути другой мой проект BankDB_JDBC но переделаный под Maven с использованием Spring Framework 
-(Spring MVC, Spring JDBC), MySQL, Jsoup, JSP, JSTL, HTML, CSS, org.apache.poi. 
+VBanking is a website with information about Ukrainian banks. 
+- Website can extract information about banks from National Bank of Ukraine website and store it in MySQL database and Excel tables. 
+- Users can search banks for name or code and website dynamically show all financial information about it.  
+- Project provides security, authentication and managing users.
+- Code is covered by unit and integration tests more than 80%. 
 
-По состоянию на 27.04.2016 по проекту на данный момент реализовано:
-1. Фронт енд сторона.
-2. Модуль отвечающиий за парсинг с сайта НБУ основной информайии по банкам.
-3. Модуль работы с базой данных - сохранение в базу данных информации по банкам, поиск по коду ЕДРПОУ или по имени банка в базе данных.
-4. Модуль отвечающий за вывод найденной информации.
-5. Модуль отвечающий за чтение Excel таблицы с помощью org.apache.poi. А именно поиск необходимого банка в Excel таблице, чтение данных и передачу их на сайт для вывода на екран.
-6. Модуль регистрации новых юзеров на сайте, валидации их данных и сохранение в базу данных юзеров.
+# Tools & Technologies: 
+Maven, Spring Framework (IOC , Spring MVC, JDBC, Spring Security and Managing Users, Testing), MySQL, Jsoup, JSP, JSTL, HTML, CSS, Apache POI, JavaScript, Log4j, JUnit, Mockito.
+
