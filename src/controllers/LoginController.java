@@ -1,5 +1,7 @@
 package controllers;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -29,10 +31,9 @@ public class LoginController {
 	}
 
 	@RequestMapping("/userpage")
-	public String showUserPage(Model model) {
+	public String showUserPage(Model model, Principal principal) {
 
-		String username = ((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal()).getUsername();
+		String username = principal.getName();
 
 		User user = usersService.getUser(username);
 
